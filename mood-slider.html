@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mood Slider Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .slider-container {
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      margin: 3rem auto;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .mood-label {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .tip-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎚️ Mood Slider</h1>
+  <p>How are you feeling today? Move the slider below:</p>
+
+  <div class="slider-container">
+    <input type="range" id="moodSlider" min="0" max="4" value="2" />
+    <div class="mood-label" id="moodLabel">😐 Neutral</div>
+    <div class="tip-box" id="tipBox">Tip will show here...</div>
+  </div>
+
+  <a href="index.html">← Back to Home</a>
+
+  <script>
+    const moodSlider = document.getElementById("moodSlider");
+    const moodLabel = document.getElementById("moodLabel");
+    const tipBox = document.getElementById("tipBox");
+
+    const moods = [
+      { emoji: "😢", label: "Sad", tip: "Talk to someone you trust or try journaling." },
+      { emoji: "😐", label: "Meh", tip: "Try taking a short walk or listening to music." },
+      { emoji: "😌", label: "Neutral", tip: "Breathe deeply. It’s okay to just be." },
+      { emoji: "😊", label: "Happy", tip: "Share your good mood with a friend!" },
+      { emoji: "😆", label: "Excited", tip: "Use that energy on something creative!" }
+    ];
+
+    function updateMood(value) {
+      const mood = moods[value];
+      moodLabel.textContent = `${mood.emoji} ${mood.label}`;
+      tipBox.textContent = mood.tip;
+    }
+
+    moodSlider.addEventListener("input", (e) => {
+      updateMood(e.target.value);
+    });
+
+    // Set initial state
+    updateMood(moodSlider.value);
+  </script>
+</body>
+</html>

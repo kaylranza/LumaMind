@@ -2,72 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>LumaMind - Home</title>
+  <title>LumaMind - Mental Health Games</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="front-container">
-    <h1 id="greeting">Hello!</h1>
-
-    <label for="avatarSelect">Choose your avatar:</label>
-    <select id="avatarSelect">
-      <option value="🙂">🙂</option>
-      <option value="😎">😎</option>
-      <option value="🤖">🤖</option>
-      <option value="🧠">🧠</option>
-      <option value="🌈">🌈</option>
-    </select>
-
-    <div id="mentalHealthFact" class="fact-box"></div>
-
+  <header>
+    <h1>Welcome to LumaMind</h1>
     <nav>
-      <a href="emotion-game.html">🎭 Emotion Game</a> |
-      <a href="thought-buster.html">🧹 Thought Buster</a> |
+      <a href="login.html">🔐 Login</a> |
+      <a href="emotion-game.html">🎭 Emotion Matching</a> |
+      <a href="mood-slider.html">🎚️ Mood Slider</a> |
       <a href="facts.html">📚 Mental Health Facts</a> |
-      <a href="researcher.html">📊 Researcher Data</a> |
-      <button id="logoutBtn">Logout</button>
+      <a href="researcher.html">🔬 Researcher Data</a>
     </nav>
-  </div>
-
+  </header>
+  <main>
+    <section class="front-container">
+      <h2>Hello, <span id="userNameDisplay">Guest</span>! <span id="userEmoji">🙂</span></h2>
+      <p>Play games to learn about mental health and track how you feel.</p>
+      <div class="fact-box" id="factBox">
+        Loading fact...
+      </div>
+    </section>
+  </main>
   <script>
-    const currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) {
-      window.location.href = 'login.html';
-    }
-
-    const greeting = document.getElementById('greeting');
-    const avatarSelect = document.getElementById('avatarSelect');
-    const factBox = document.getElementById('mentalHealthFact');
-
-    const savedAvatar = localStorage.getItem(`avatar_${currentUser}`) || '🙂';
-    avatarSelect.value = savedAvatar;
-    greeting.textContent = `Hello, ${currentUser}! ${savedAvatar}`;
-
-    avatarSelect.addEventListener('change', () => {
-      const selected = avatarSelect.value;
-      localStorage.setItem(`avatar_${currentUser}`, selected);
-      greeting.textContent = `Hello, ${currentUser}! ${selected}`;
-    });
-
+    // Show a random mental health fact each page load
     const facts = [
-      "Taking deep breaths can reduce anxiety.",
-      "Regular exercise improves your mood.",
-      "Talking to someone helps relieve stress.",
-      "Sleep is crucial for mental well-being.",
-      "Meditation can help calm your mind.",
-      "Journaling helps track emotions and growth.",
-      "Breaks during work help prevent burnout.",
-      "Being kind to yourself is powerful.",
-      "Small steps still move you forward.",
-      "It's okay to ask for help."
+      "Mental health includes emotional, psychological, and social well-being.",
+      "Talking about your feelings helps you stay in good mental health.",
+      "Mental health problems are common but help is available.",
+      "Exercise can improve your mental health and mood.",
+      "Sleep is important for good mental health."
     ];
+    document.getElementById('factBox').textContent = facts[Math.floor(Math.random() * facts.length)];
 
-    factBox.textContent = facts[Math.floor(Math.random() * facts.length)];
-
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('currentUser');
-      window.location.href = 'login.html';
-    });
+    // Show user name & emoji from sessionStorage
+    const userName = sessionStorage.getItem('username') || 'Guest';
+    const userEmoji = sessionStorage.getItem('useremoji') || '🙂';
+    document.getElementById('userNameDisplay').textContent = userName;
+    document.getElementById('userEmoji').textContent = userEmoji;
   </script>
 </body>
 </html>
+
