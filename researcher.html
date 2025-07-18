@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Researcher Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Submitted Mood Data</h2>
+  <div id="dataDisplay"></div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('lumamindData') || '[]');
+    const container = document.getElementById('dataDisplay');
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No submissions yet.</p>";
+    } else {
+      data.forEach(entry => {
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>Mood:</strong> ${entry.mood} <br/><em>${entry.note}</em> <hr/>`;
+        container.appendChild(p);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mood Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>How are you feeling today?</h2>
+  <input type="range" min="0" max="10" id="moodSlider" />
+  <p>Mood: <span id="moodValue">5</span></p>
+
+  <label for="note">Write something about how you feel:</label><br />
+  <textarea id="note" rows="4" cols="50"></textarea><br />
+
+  <button onclick="submitData()">Submit</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
