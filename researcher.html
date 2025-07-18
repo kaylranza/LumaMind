@@ -1,13 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Researcher Data</title>
+  <meta charset="UTF-8">
+  <title>Research Data</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: #1e0033;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+
+    .entry-list {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 20px #a64ac9;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .entry {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .entry h3 {
+      margin: 0 0 0.5rem;
+      color: #e0aaff;
+    }
+
+    .entry time {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    .entry p {
+      margin-top: 0.5rem;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>📊 Researcher Dashboard</h1>
-  <p>This page will eventually show user data for research purposes.</p>
+  <h1>📊 User Mood Submissions</h1>
+  <div id="entries" class="entry-list"></div>
   <a href="index.html">← Back to Home</a>
+
+  <script>
+    const container = document.getElementById("entries");
+    const data = JSON.parse(localStorage.getItem("researchData")) || [];
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No mood entries yet. Try using the Mood Slider!</p>";
+    } else {
+      data.reverse().forEach(entry => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <h3>${entry.emoji} ${entry.mood}</h3>
+          <time>${new Date(entry.timestamp).toLocaleString()}</time>
+          <p><strong>Reason:</strong> ${entry.reason}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
 </body>
 </html>
