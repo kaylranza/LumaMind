@@ -8,25 +8,38 @@
 <body>
   <div class="login-container">
     <h1>Welcome to LumaMind</h1>
-    <input id="username" type="text" placeholder="Enter your name" />
+    <input id="username" type="text" placeholder="Enter your name" /><br/>
+    <input id="password" type="password" placeholder="Enter password" /><br/>
     <button id="loginBtn">Login</button>
   </div>
 
   <script>
     const loginBtn = document.getElementById('loginBtn');
+
     loginBtn.addEventListener('click', () => {
       const username = document.getElementById('username').value.trim();
-      if (username) {
-        localStorage.setItem('username', username);
-        window.location.href = 'index.html';
-      } else {
-        alert('Please enter your name');
-      }
-    });
+      const password = document.getElementById('password').value.trim();
 
-    if (localStorage.getItem('username')) {
+      if (!username || !password) {
+        alert('Please enter both name and password.');
+        return;
+      }
+
+      const savedPassword = localStorage.getItem(`password_${username}`);
+
+      if (savedPassword && savedPassword !== password) {
+        alert('Incorrect password for this user.');
+        return;
+      }
+
+      // Save credentials if first time
+      if (!savedPassword) {
+        localStorage.setItem(`password_${username}`, password);
+      }
+
+      localStorage.setItem('currentUser', username);
       window.location.href = 'index.html';
-    }
+    });
   </script>
 </body>
 </html>
