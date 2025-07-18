@@ -29,6 +29,38 @@
       background-color: rgba(255,255,255,0.2);
       border-radius: 10px;
     }
+
+    textarea {
+      margin-top: 1.5rem;
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 1rem;
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    .confirmation {
+      margin-top: 1rem;
+      color: #a0e3a0;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -39,6 +71,14 @@
     <input type="range" id="moodSlider" min="0" max="4" value="2" />
     <div class="mood-label" id="moodLabel">😐 Neutral</div>
     <div class="tip-box" id="tipBox">Tip will show here...</div>
+
+    <label for="reasonInput" style="display:block; margin-top: 1.5rem; font-weight: 600;">
+      Why do you feel this way? Please share your thoughts:
+    </label>
+    <textarea id="reasonInput" placeholder="Type your reason here..."></textarea>
+
+    <button id="submitBtn" disabled>Submit</button>
+    <div id="confirmation" class="confirmation"></div>
   </div>
 
   <a href="index.html">← Back to Home</a>
@@ -47,6 +87,9 @@
     const moodSlider = document.getElementById("moodSlider");
     const moodLabel = document.getElementById("moodLabel");
     const tipBox = document.getElementById("tipBox");
+    const reasonInput = document.getElementById("reasonInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const confirmation = document.getElementById("confirmation");
 
     const moods = [
       { emoji: "😢", label: "Sad", tip: "Talk to someone you trust or try journaling." },
@@ -64,10 +107,43 @@
 
     moodSlider.addEventListener("input", (e) => {
       updateMood(e.target.value);
+      checkInput();
     });
 
-    // Set initial state
+    reasonInput.addEventListener("input", checkInput);
+
+    function checkInput() {
+      submitBtn.disabled = reasonInput.value.trim().length === 0;
+    }
+
+    submitBtn.addEventListener("click", () => {
+      const moodValue = moodSlider.value;
+      const mood = moods[moodValue];
+      const reason = reasonInput.value.trim();
+      const timestamp = new Date().toISOString();
+
+      // Prepare entry object
+      const entry = {
+        mood: mood.label,
+        emoji: mood.emoji,
+        reason: reason,
+        timestamp: timestamp
+      };
+
+      // Save entry to localStorage array 'researchData'
+      let researchData = JSON.parse(localStorage.getItem('researchData')) || [];
+      researchData.push(entry);
+      localStorage.setItem('researchData', JSON.stringify(researchData));
+
+      // Confirmation message and clear textarea
+      confirmation.textContent = "Thanks for sharing your feelings!";
+      reasonInput.value = '';
+      submitBtn.disabled = true;
+    });
+
+    // Initialize
     updateMood(moodSlider.value);
   </script>
 </body>
 </html>
+
