@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thought Buster Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .game-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+    .negative-thought {
+      padding: 1rem;
+      background: #ff6b6b;
+      border-radius: 8px;
+      margin: 1rem;
+      cursor: move;
+      color: #fff;
+      font-weight: bold;
+    }
+    .trash-bin {
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 3px dashed #fff;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧹 Thought Buster</h1>
+  <p>Drag negative thoughts into the trash to clear your mind!</p>
+
+  <div class="game-box">
+    <div class="negative-thought" draggable="true">"I'm not good enough"</div>
+    <div class="negative-thought" draggable="true">"I always fail"</div>
+    <div class="negative-thought" draggable="true">"Nobody likes me"</div>
+
+    <div class="trash-bin" id="trashBin">🗑 Drop thoughts here</div>
+  </div>
+
+  <a href="index.html">← Back to Home</a>
+
+  <script>
+    const thoughts = document.querySelectorAll('.negative-thought');
+    const trashBin = document.getElementById('trashBin');
+
+    thoughts.forEach(thought => {
+      thought.addEventListener('dragstart', () => {
+        thought.classList.add('dragging');
+      });
+      thought.addEventListener('dragend', () => {
+        thought.classList.remove('dragging');
+      });
+    });
+
+    trashBin.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+
+    trashBin.addEventListener('drop', () => {
+      const dragging = document.querySelector('.dragging');
+      if (dragging) {
+        dragging.remove();
+        trashBin.innerHTML = "✅ Thought busted!";
+      }
+    });
+  </script>
+</body>
+</html>

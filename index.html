@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>LumaMind Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LumaMind - Home</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="front-container">
-    <h1 id="greeting"></h1>
+    <h1 id="greeting">Hello!</h1>
 
-    <label for="avatarSelect">Choose your avatar: </label>
+    <label for="avatarSelect">Choose your avatar:</label>
     <select id="avatarSelect">
       <option value="🙂">🙂</option>
       <option value="😎">😎</option>
@@ -21,49 +22,59 @@
     <div id="mentalHealthFact" class="fact-box"></div>
 
     <nav>
-      <a href="emotion-game.html">🕹 Emotion Game</a> |
+      <a href="emotion-game.html">🎭 Emotion Game</a> |
+      <a href="thought-buster.html">🧹 Thought Buster</a> |
+      <a href="facts.html">📚 Mental Health Facts</a> |
       <a href="researcher.html">📊 Researcher Data</a> |
-      <a href="extra-tab1.html">📄 Tab 1</a> |
-      <a href="extra-tab2.html">📄 Tab 2</a> |
       <button id="logoutBtn">Logout</button>
     </nav>
   </div>
 
   <script>
-    const username = localStorage.getItem('username') || 'Guest';
+    // Get elements
+    const username = localStorage.getItem('username');
     const greeting = document.getElementById('greeting');
     const avatarSelect = document.getElementById('avatarSelect');
     const factBox = document.getElementById('mentalHealthFact');
 
+    // Redirect if not logged in
+    if (!username) {
+      window.location.href = 'login.html';
+    }
+
+    // Set greeting and avatar
     const savedAvatar = localStorage.getItem('avatar') || '🙂';
     avatarSelect.value = savedAvatar;
     greeting.textContent = `Hello, ${username}! ${savedAvatar}`;
 
+    // Update avatar when changed
     avatarSelect.addEventListener('change', () => {
       const selected = avatarSelect.value;
       localStorage.setItem('avatar', selected);
       greeting.textContent = `Hello, ${username}! ${selected}`;
     });
 
+    // Show a random mental health tip
     const facts = [
       "Taking deep breaths can reduce anxiety.",
-      "Regular exercise improves mood.",
+      "Regular exercise improves your mood.",
       "Talking to someone helps relieve stress.",
-      "Sleep is crucial for mental health.",
+      "Sleep is crucial for mental well-being.",
       "Meditation can help calm your mind.",
-      "Journaling helps you understand your emotions.",
-      "Breaks during study time reduce burnout."
+      "Journaling helps track emotions and growth.",
+      "Breaks during work help prevent burnout.",
+      "Being kind to yourself is powerful.",
+      "Small steps still move you forward.",
+      "It's okay to ask for help."
     ];
+
     factBox.textContent = facts[Math.floor(Math.random() * facts.length)];
 
+    // Logout logic
     document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.clear();
       window.location.href = 'login.html';
     });
-
-    if (!localStorage.getItem('username')) {
-      window.location.href = 'login.html';
-    }
   </script>
 </body>
 </html>
