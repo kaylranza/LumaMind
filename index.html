@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LumaMind Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="front-container">
+    <h1 id="greeting"></h1>
+
+    <label for="avatarSelect">Choose your avatar: </label>
+    <select id="avatarSelect">
+      <option value="🙂">🙂</option>
+      <option value="😎">😎</option>
+      <option value="🤖">🤖</option>
+      <option value="🧠">🧠</option>
+      <option value="🌈">🌈</option>
+    </select>
+
+    <div id="mentalHealthFact" class="fact-box"></div>
+
+    <nav>
+      <a href="emotion-game.html">🕹 Emotion Game</a> |
+      <a href="researcher.html">📊 Researcher Data</a> |
+      <a href="extra-tab1.html">📄 Tab 1</a> |
+      <a href="extra-tab2.html">📄 Tab 2</a> |
+      <button id="logoutBtn">Logout</button>
+    </nav>
+  </div>
+
+  <script>
+    const username = localStorage.getItem('username') || 'Guest';
+    const greeting = document.getElementById('greeting');
+    const avatarSelect = document.getElementById('avatarSelect');
+    const factBox = document.getElementById('mentalHealthFact');
+
+    const savedAvatar = localStorage.getItem('avatar') || '🙂';
+    avatarSelect.value = savedAvatar;
+    greeting.textContent = `Hello, ${username}! ${savedAvatar}`;
+
+    avatarSelect.addEventListener('change', () => {
+      const selected = avatarSelect.value;
+      localStorage.setItem('avatar', selected);
+      greeting.textContent = `Hello, ${username}! ${selected}`;
+    });
+
+    const facts = [
+      "Taking deep breaths can reduce anxiety.",
+      "Regular exercise improves mood.",
+      "Talking to someone helps relieve stress.",
+      "Sleep is crucial for mental health.",
+      "Meditation can help calm your mind.",
+      "Journaling helps you understand your emotions.",
+      "Breaks during study time reduce burnout."
+    ];
+    factBox.textContent = facts[Math.floor(Math.random() * facts.length)];
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
+    if (!localStorage.getItem('username')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

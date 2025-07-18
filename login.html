@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LumaMind Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1>Welcome to LumaMind</h1>
+    <input id="username" type="text" placeholder="Enter your name" />
+    <button id="loginBtn">Login</button>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      if (username) {
+        localStorage.setItem('username', username);
+        window.location.href = 'index.html';
+      } else {
+        alert('Please enter your name');
+      }
+    });
+
+    if (localStorage.getItem('username')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
