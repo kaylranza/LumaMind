@@ -1,45 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>LumaMind Login</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LumaMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login-style.css">
+
+    <style>
+        /* General Body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #9c4b8e; /* Solid Purple Background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Login Container */
+        .login-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        /* Header Text */
+        h1 {
+            font-family: 'Vibes', cursive;
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 0 0 10px #ffb6c1;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        /* Description */
+        p {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            background-color: #ffb6c1;
+            color: #9c4b8e;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            transform: scale(1.05);
+            outline: none;
+            box-shadow: 0 6px 22px rgba(255, 105, 180, 0.7);
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #ff7f7f;
+            color: white;
+            padding: 1.2rem 4rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffb6c1;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.7);
+        }
+
+        /* Signup Link */
+        .signup {
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .signup a {
+            color: #ffb6c1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup a:hover {
+            color: #ff7f7f;
+        }
+
+        /* Sparkles Animation */
+        @keyframes sparkle {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
 </head>
 <body>
-  <div class="login-container">
-    <h1>Welcome to LumaMind</h1>
-    <input id="username" type="text" placeholder="Enter your name" /><br/>
-    <input id="password" type="password" placeholder="Enter password" /><br/>
-    <button id="loginBtn">Login</button>
-  </div>
 
-  <script>
-    const loginBtn = document.getElementById('loginBtn');
+    <!-- Background Music -->
+    <audio id="bg-music" autoplay loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
-    loginBtn.addEventListener('click', () => {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
+    <!-- Login Container -->
+    <div class="login-container">
+        <h1>Welcome to LumaMind!</h1>
+        <p>Let’s start your cozy mental health journey ✨</p>
 
-      if (!username || !password) {
-        alert('Please enter both name and password.');
-        return;
-      }
+        <!-- Login Form -->
+        <form id="login-form">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter your username" required />
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Enter your password" required />
+            </div>
+            <button type="submit">Start Your Journey!</button>
+        </form>
+        
+        <p class="signup">Don’t have an account? <a href="#">Sign Up</a></p>
+    </div>
 
-      const savedPassword = localStorage.getItem(`password_${username}`);
+    <script>
+        // Handle login logic
+        const form = document.getElementById("login-form");
 
-      if (savedPassword && savedPassword !== password) {
-        alert('Incorrect password for this user.');
-        return;
-      }
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
 
-      // Save credentials if first time
-      if (!savedPassword) {
-        localStorage.setItem(`password_${username}`, password);
-      }
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-      localStorage.setItem('currentUser', username);
-      window.location.href = 'index.html';
-    });
-  </script>
+            if (username && password) {
+                // Store the username in localStorage
+                localStorage.setItem("userName", username);
+                window.location.href = "index.html"; // Redirect to the homepage
+            } else {
+                alert("Please enter a valid username and password!");
+            }
+        });
+    </script>
+
 </body>
 </html>
+
+

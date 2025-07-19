@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumaMind - Mood Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>LumaMind</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="mentalhealth.html">Mental Health</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mood-slider-container">
+        <h2>How Are You Feeling Today?</h2>
+
+        <!-- Emoji-based Mood Selection -->
+        <div class="emoji-selection">
+            <span class="emoji" onclick="setMood('😞')">😞</span>
+            <span class="emoji" onclick="setMood('😐')">😐</span>
+            <span class="emoji" onclick="setMood('😊')">😊</span>
+            <span class="emoji" onclick="setMood('😁')">😁</span>
+        </div>
+
+        <!-- Text Box for Explanation -->
+        <div class="mood-description">
+            <textarea id="mood-reason" placeholder="Why do you feel this way today?"></textarea>
+        </div>
+
+        <!-- Star Rating -->
+        <div class="star-rating">
+            <p>Stars Earned: <span id="star-count">0</span></p>
+        </div>
+
+        <button onclick="submitMood()">Submit Mood</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let selectedMood = '';
+        const starCount = document.getElementById("star-count");
+
+        function setMood(emoji) {
+            selectedMood = emoji;
+            document.getElementById("mood-reason").style.display = 'block';
+        }
+
+        function submitMood() {
+            const moodReason = document.getElementById("mood-reason").value;
+            let stars = 0;
+
+            if (selectedMood === '😞') stars = 1;
+            if (selectedMood === '😐') stars = 2;
+            if (selectedMood === '😊') stars = 3;
+            if (selectedMood === '😁') stars = 4;
+
+            starCount.textContent = stars;
+
+            // Example of sending data to the backend (you can adjust this to your system)
+            console.log(`Mood: ${selectedMood}, Reason: ${moodReason}, Stars: ${stars}`);
+        }
+    </script>
+</body>
+</html>

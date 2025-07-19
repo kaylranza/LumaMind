@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health - LumaMind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>LumaMind</h1>
+        </div>
+        <nav class="navbar">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="games.html">Games</a>
+            <a href="mental_health.html">Mental Health</a>
+            <a href="research.html">Research</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="mental-health-container">
+            <h2>Mental Health Resources</h2>
+            <p>Taking care of your mental health is crucial! Here are some facts and resources to help you understand mental well-being better.</p>
+
+            <!-- AI Question Section -->
+            <div class="ai-section">
+                <h3>Ask a Question:</h3>
+                <textarea id="user-question" placeholder="Ask anything about mental health..." rows="3"></textarea>
+                <button onclick="askQuestion()">Ask</button>
+
+                <div id="ai-response" class="ai-response"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
+    </footer>
+
+    <script src="ai.js"></script> <!-- AI script to handle questions -->
+</body>
+</html>
+
+
+
+
