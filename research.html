@@ -6,52 +6,357 @@
     <title>Research - LumaMind</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic Page Layout */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: scroll; /* Enable scrolling for the entire page */
+            font-size: 18px; /* Default font size */
+        }
+
+        header {
+            background-color: #9c4b8e;
+            padding: 25px 0;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 32px; /* Bigger logo text */
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        li {
+            margin-left: 30px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px; /* Bigger menu items */
+        }
+
+        /* Content Wrapper */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            margin-bottom: 50px; /* Ensure space at the bottom */
+        }
+
+        /* Research Section */
+        #research {
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #research h2 {
+            color: #9c4b8e;
+            text-align: center;
+            font-size: 32px; /* Bigger title */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        form input, form textarea {
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 18px; /* Bigger input and textarea */
+        }
+
+        form button {
+            padding: 15px;
+            background-color: #9c4b8e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px; /* Bigger button */
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #7f3f6d;
+        }
+
+        /* Research List */
+        #research-entries {
+            margin-top: 40px;
+            padding: 10px;
+        }
+
+        #research-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .research-item {
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-item h4 {
+            margin: 0;
+            font-size: 24px; /* Bigger research title */
+            color: #9c4b8e;
+        }
+
+        .research-item p {
+            margin: 10px 0;
+            font-size: 18px; /* Bigger content */
+            color: #333;
+        }
+
+        /* Mood Stats Section */
+        #mood-stats {
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #mood-stats h2 {
+            color: #9c4b8e;
+            text-align: center;
+            font-size: 32px; /* Bigger title */
+        }
+
+        #chart-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Reasons Container */
+        .reasons-container {
+            margin-top: 40px;
+            padding: 15px;
+        }
+
+        .reason-item {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mood {
+            font-weight: bold;
+            font-size: 22px; /* Bigger mood text */
+            color: #9c4b8e;
+        }
+
+        .reason-item ul {
+            padding-left: 20px;
+            font-size: 18px; /* Bigger list items */
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <header>
-        <nav class="navbar">
-            <div class="logo">
-                <h1>LumaMind</h1>
-            </div>
-            <ul>
-                <li><a href="index.html">Dashboard</a></li>
-                <li><a href="games.html">Games</a></li>
-                <li><a href="mentalhealth.html">Mental Health</a></li>
-            </ul>
-        </nav>
+        <div class="logo">
+            <h1>LumaMind</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="moodslider.html">Mood Slider</a></li>
+            <li><a href="memorymatch.html">Memory Match</a></li>
+            <li><a href="mentalhealth.html">Mental Health</a></li>
+            <li><a href="research.html">Research</a></li>
+        </ul>
     </header>
 
-    <div class="research-container">
-        <h2>Research Data</h2>
-        <p>Below are anonymized answers from users regarding their mood and experiences.</p>
-        
-        <div class="research-data">
-            <div class="research-entry">
-                <p><strong>Mood:</strong> 😞</p>
-                <p><strong>Reason:</strong> "I had a rough day at work, feeling down."</p>
-            </div>
-            <div class="research-entry">
-                <p><strong>Mood:</strong> 😐</p>
-                <p><strong>Reason:</strong> "Just another normal day, not too great or bad."</p>
-            </div>
-            <div class="research-entry">
-                <p><strong>Mood:</strong> 😊</p>
-                <p><strong>Reason:</strong> "Feeling pretty good today, had a nice chat with a friend."</p>
-            </div>
-            <div class="research-entry">
-                <p><strong>Mood:</strong> 😁</p>
-                <p><strong>Reason:</strong> "Excited! Big project is almost done!"</p>
-            </div>
-        </div>
-    </div>
+    <!-- Main Content Area -->
+    <main>
 
-    <footer>
-        <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
-    </footer>
+        <!-- Research Section -->
+        <section id="research">
+            <h2>Research Information</h2>
+
+            <!-- Form to Add New Research -->
+            <form id="research-form">
+                <label for="research-title">Research Title:</label>
+                <input type="text" id="research-title" placeholder="Enter Research Title" required>
+
+                <label for="research-content">Research Content:</label>
+                <textarea id="research-content" placeholder="Enter details about the research" rows="6" required></textarea>
+
+                <button type="submit">Add Research</button>
+            </form>
+
+            <!-- Displaying Research Entries -->
+            <div id="research-entries">
+                <h3>Existing Research</h3>
+                <ul id="research-list">
+                    <!-- Research entries will appear here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Mood Response Statistics -->
+        <section id="mood-stats">
+            <h2>Mood Response Statistics</h2>
+
+            <!-- Displaying Mood Chart -->
+            <div id="chart-container">
+                <canvas id="moodChart"></canvas>
+            </div>
+
+            <!-- Displaying Reasons -->
+            <div class="reasons-container" id="reasonsContainer"> 
+                <!-- Reasons will be inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Research Form Logic
+        const form = document.getElementById('research-form');
+        const titleInput = document.getElementById('research-title');
+        const contentInput = document.getElementById('research-content');
+        const researchList = document.getElementById('research-list');
+
+        // Load existing research from localStorage
+        function loadResearch() {
+            const storedResearch = JSON.parse(localStorage.getItem('researchEntries')) || [];
+            storedResearch.forEach(entry => {
+                addResearchEntry(entry.title, entry.content);
+            });
+        }
+
+        // Add new research entry to the list and save to localStorage
+        function addResearchEntry(title, content) {
+            const li = document.createElement('li');
+            li.classList.add('research-item');
+
+            const researchTitle = document.createElement('h4');
+            researchTitle.textContent = title;
+            const researchContent = document.createElement('p');
+            researchContent.textContent = content;
+
+            li.appendChild(researchTitle);
+            li.appendChild(researchContent);
+            researchList.appendChild(li);
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form from reloading the page
+
+            const title = titleInput.value;
+            const content = contentInput.value;
+
+            // Add research entry to list
+            addResearchEntry(title, content);
+
+            // Save to localStorage
+            const storedResearch = JSON.parse(localStorage.getItem('researchEntries')) || [];
+            storedResearch.push({ title, content });
+            localStorage.setItem('researchEntries', JSON.stringify(storedResearch));
+
+            // Clear form inputs
+            titleInput.value = '';
+            contentInput.value = '';
+        });
+
+        // Mood Response Statistics and Reasons (Similar to previous code)
+        let moodResponses = JSON.parse(localStorage.getItem('moodResponses')) || [];
+        let moodCount = { verySad: 0, sad: 0, neutral: 0, happy: 0, veryHappy: 0 };
+        let reasons = { verySad: [], sad: [], neutral: [], happy: [], veryHappy: [] };
+
+        moodResponses.forEach(response => {
+            const mood = response.mood;
+            const reason = response.reason;
+            switch (mood) {
+                case '1': moodCount.verySad++; reasons.verySad.push(reason); break;
+                case '2': moodCount.sad++; reasons.sad.push(reason); break;
+                case '3': moodCount.neutral++; reasons.neutral.push(reason); break;
+                case '4': moodCount.happy++; reasons.happy.push(reason); break;
+                case '5': moodCount.veryHappy++; reasons.veryHappy.push(reason); break;
+            }
+        });
+
+        // Mood Chart
+        const chartData = {
+            labels: ['Very Sad', 'Sad', 'Neutral', 'Happy', 'Very Happy'],
+            datasets: [{
+                label: 'Mood Responses',
+                data: [moodCount.verySad, moodCount.sad, moodCount.neutral, moodCount.happy, moodCount.veryHappy],
+                backgroundColor: ['#ff4f4f', '#ff8c4f', '#ffeb7f', '#7fff7f', '#4fd3ff'],
+                borderColor: ['#ff4f4f', '#ff8c4f', '#ffeb7f', '#7fff7f', '#4fd3ff'],
+                borderWidth: 1
+            }]
+        };
+
+        const ctx = document.getElementById('moodChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+                plugins: { legend: { position: 'top' }, tooltip: { enabled: true } }
+            }
+        });
+
+        // Display Reasons
+        function displayReasons() {
+            const container = document.getElementById('reasonsContainer');
+            for (let mood in reasons) {
+                const moodElement = document.createElement('div');
+                moodElement.classList.add('reason-item');
+                const moodText = mood.charAt(0).toUpperCase() + mood.slice(1);
+
+                moodElement.innerHTML = `
+                    <p class="mood">${moodText}:</p>
+                    <ul>
+                        ${reasons[mood].map(reason => `<li>${reason}</li>`).join('')}
+                    </ul>
+                `;
+                container.appendChild(moodElement);
+            }
+        }
+
+        displayReasons();
+
+    </script>
 
 </body>
 </html>
-
-
-

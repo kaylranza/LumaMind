@@ -23,3 +23,5 @@ function askQuestion() {
     const response = simulatedAnswers[userQuestion] || "I'm not sure about that. Try asking a more specific mental health-related question!";
     aiResponse.textContent = response;
 }
+
+

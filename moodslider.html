@@ -3,76 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LumaMind - Mood Tracker</title>
+    <title>LumaMind - Mood Slider</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <header>
-        <nav class="navbar">
+        <div class="navbar">
             <div class="logo">
                 <h1>LumaMind</h1>
             </div>
             <ul>
                 <li><a href="index.html">Dashboard</a></li>
-                <li><a href="games.html">Games</a></li>
+                <li><a href="moodslider.html">Mood Slider</a></li>
+                <li><a href="memorymatch.html">Memory Match</a></li>
                 <li><a href="mentalhealth.html">Mental Health</a></li>
+                <li><a href="research.html">Research</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f7f7f7;
+            height: 100vh;
+            margin: 0;
+        }
 
-    <div class="mood-slider-container">
-        <h2>How Are You Feeling Today?</h2>
+        h2 {
+            color: #9c4b8e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
 
-        <!-- Emoji-based Mood Selection -->
-        <div class="emoji-selection">
-            <span class="emoji" onclick="setMood('😞')">😞</span>
-            <span class="emoji" onclick="setMood('😐')">😐</span>
-            <span class="emoji" onclick="setMood('😊')">😊</span>
-            <span class="emoji" onclick="setMood('😁')">😁</span>
+        /* Mood Slider Section */
+        #mood-slider {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* Slider */
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #ff7f7f, #ffeb7f, #7fff7f, #7fbfff, #7f7fff);
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="range"]:hover {
+            cursor: pointer;
+        }
+
+        /* Mood Text */
+        #mood-level {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        #mood-emoji {
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+
+        /* Reason for Mood Section */
+        #reason-container {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-size: 1rem;
+            color: #555;
+            resize: none;
+        }
+
+        textarea:focus {
+            border-color: #9c4b8e;
+            outline: none;
+        }
+
+        /* Submit Button */
+        button {
+            padding: 10px 20px;
+            background-color: #9c4b8e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #7a2a6b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mood Slider Section -->
+    <section id="mood-slider">
+        <h2>How are you feeling today?</h2>
+
+        <!-- Slider Input -->
+        <input type="range" id="mood-range" min="1" max="5" value="3">
+        <p id="mood-level">Neutral</p>
+
+        <!-- Emoji Display -->
+        <div id="mood-emoji">😐</div>
+
+        <!-- Reason for Mood -->
+        <div id="reason-container">
+            <label for="mood-reason">Why do you feel this way?</label>
+            <textarea id="mood-reason" placeholder="Write your reason here..."></textarea>
         </div>
 
-        <!-- Text Box for Explanation -->
-        <div class="mood-description">
-            <textarea id="mood-reason" placeholder="Why do you feel this way today?"></textarea>
-        </div>
-
-        <!-- Star Rating -->
-        <div class="star-rating">
-            <p>Stars Earned: <span id="star-count">0</span></p>
-        </div>
-
-        <button onclick="submitMood()">Submit Mood</button>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
-    </footer>
+        <!-- Submit Button -->
+        <button id="submit-mood">Submit</button>
+    </section>
 
     <script>
-        let selectedMood = '';
-        const starCount = document.getElementById("star-count");
+        // Select elements
+        const moodRange = document.getElementById('mood-range');
+        const moodLevel = document.getElementById('mood-level');
+        const moodEmoji = document.getElementById('mood-emoji');
+        const moodReason = document.getElementById('mood-reason');
+        const submitButton = document.getElementById('submit-mood');
 
-        function setMood(emoji) {
-            selectedMood = emoji;
-            document.getElementById("mood-reason").style.display = 'block';
+        // Function to update mood based on slider value
+        function updateMood() {
+            const value = moodRange.value;
+
+            // Update the mood level text
+            if (value == 1) {
+                moodLevel.textContent = "Very Sad";
+                moodEmoji.textContent = "😢";
+            } else if (value == 2) {
+                moodLevel.textContent = "Sad";
+                moodEmoji.textContent = "😞";
+            } else if (value == 3) {
+                moodLevel.textContent = "Neutral";
+                moodEmoji.textContent = "😐";
+            } else if (value == 4) {
+                moodLevel.textContent = "Happy";
+                moodEmoji.textContent = "😊";
+            } else {
+                moodLevel.textContent = "Very Happy";
+                moodEmoji.textContent = "😁";
+            }
         }
 
+        // Function to save mood response (mood + reason) to localStorage
+        function saveMoodResponse() {
+            const moodValue = moodRange.value;
+            const reason = moodReason.value;
+
+            // Create mood object to store
+            const moodData = {
+                mood: moodValue,
+                reason: reason,
+            };
+
+            // Get previous responses from localStorage
+            let moodResponses = JSON.parse(localStorage.getItem('moodResponses')) || [];
+
+            // Add the new response
+            moodResponses.push(moodData);
+
+            // Save back to localStorage
+            localStorage.setItem('moodResponses', JSON.stringify(moodResponses));
+
+            // Clear the reason textarea after submission
+            moodReason.value = '';
+            alert('Your mood response has been saved!');
+        }
+
+        // Event listener for slider change
+        moodRange.addEventListener('input', updateMood);
+
+        // Submit button click
+        submitButton.addEventListener('click', saveMoodResponse);
+
+        // Initialize with current mood level
+        updateMood();
+    </script>
+    <script> 
+            // Submit mood and reason
         function submitMood() {
-            const moodReason = document.getElementById("mood-reason").value;
-            let stars = 0;
+            const reason = document.getElementById("reason").value;
+            const mood = moodSlider.value;
 
-            if (selectedMood === '😞') stars = 1;
-            if (selectedMood === '😐') stars = 2;
-            if (selectedMood === '😊') stars = 3;
-            if (selectedMood === '😁') stars = 4;
+            if (reason.trim() === "") {
+                alert("Please provide a reason!");
+                return;
+            }
 
-            starCount.textContent = stars;
+            // Save the data in localStorage
+            let moodResponses = JSON.parse(localStorage.getItem("moodResponses")) || [];
+            moodResponses.push({ mood, reason });
+            localStorage.setItem("moodResponses", JSON.stringify(moodResponses));
 
-            // Example of sending data to the backend (you can adjust this to your system)
-            console.log(`Mood: ${selectedMood}, Reason: ${moodReason}, Stars: ${stars}`);
+            // Clear the fields after submission
+            document.getElementById("reason").value = "";
+            alert("Your response has been submitted!");
         }
     </script>
+
 </body>
 </html>
+

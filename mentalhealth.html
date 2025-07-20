@@ -3,27 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Health - LumaMind</title>
+    <title>LumaMind - Mental Health</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <header>
-        <div class="logo">
-            <h1>LumaMind</h1>
+        <div class="navbar">
+            <div class="logo">
+                <h1>LumaMind</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="moodslider.html">Mood Slider</a></li>
+                <li><a href="memorymatch.html">Memory Match</a></li>
+                <li><a href="mentalhealth.html">Mental Health</a></li>
+                <li><a href="research.html">Research</a></li>
+            </ul>
         </div>
-        <nav class="navbar">
-            <a href="dashboard.html">Dashboard</a>
-            <a href="games.html">Games</a>
-            <a href="mental_health.html">Mental Health</a>
-            <a href="research.html">Research</a>
-        </nav>
     </header>
-
     <main>
         <section class="mental-health-container">
             <h2>Mental Health Resources</h2>
             <p>Taking care of your mental health is crucial! Here are some facts and resources to help you understand mental well-being better.</p>
+
+<!-- Mental Health Section with Flip Cards -->
+<section id="mentalhealth" class="mental-health">
+    <h2>Learn About Mental Health</h2>
+    <div class="flip-cards">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="front">
+                    <h3>What is Mental Health?</h3>
+                </div>
+                <div class="back">
+                    <p>Mental health includes our emotional, psychological, and social well-being. It affects how we think, feel, and act.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="front">
+                    <h3>Why is it Important?</h3>
+                </div>
+                <div class="back">
+                    <p>Mental health is important because it affects every part of our lives, including relationships, work, and overall happiness.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="front">
+                    <h3>How Can We Improve It?</h3>
+                </div>
+                <div class="back">
+                    <p>Engage in activities that reduce stress, get enough sleep, and talk to someone when you're feeling low.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
             <!-- AI Question Section -->
             <div class="ai-section">
@@ -36,11 +83,10 @@
         </section>
     </main>
 
+    <script src="ai.js"></script> <!-- AI script to handle questions -->
     <footer>
         <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
     </footer>
-
-    <script src="ai.js"></script> <!-- AI script to handle questions -->
 </body>
 </html>
 

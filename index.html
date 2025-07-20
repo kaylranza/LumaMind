@@ -17,7 +17,8 @@
             </div>
             <ul>
                 <li><a href="index.html">Dashboard</a></li>
-                <li><a href="games.html">Games</a></li>
+                <li><a href="moodslider.html">Mood Slider</a></li>
+                <li><a href="memorymatch.html">Memory Match</a></li>
                 <li><a href="mentalhealth.html">Mental Health</a></li>
                 <li><a href="research.html">Research</a></li>
             </ul>
@@ -49,131 +50,13 @@
         </div>
     </main>
 
-    <!-- Mood Slider - Games Section -->
-    <section id="games" class="games-section">
-        <div class="game-header">
-            <h2>How Are You Feeling Today?</h2>
-            <div class="emoji-slider">
-                <span>😞</span>
-                <input type="range" id="mood-slider" min="1" max="5" value="3">
-                <span>🌞</span>
-            </div>
-            <textarea id="mood-reason" placeholder="Why do you feel this way today?" rows="4"></textarea>
-            <button onclick="submitMood()">Submit Mood</button>
-            <div id="mood-stars" class="mood-stars"></div>
-        </div>
-
-        <!-- Memory Match Game -->
-        <div class="memory-game">
-            <h2>Memory Match Game</h2>
-            <div id="game-board" class="game-board"></div>
-            <button onclick="startMemoryGame()">Start Game</button>
-        </div>
-    </section>
-
-    <!-- Mental Health Section with Flip Cards -->
-    <section id="mentalhealth" class="mental-health">
-        <h2>Learn About Mental Health</h2>
-        <div class="flip-cards">
-            <div class="card">
-                <div class="front">What is Mental Health?</div>
-                <div class="back">Mental health includes our emotional, psychological, and social well-being. It affects how we think, feel, and act.</div>
-            </div>
-            <div class="card">
-                <div class="front">Why is it Important?</div>
-                <div class="back">Mental health is important because it affects every part of our lives, including relationships, work, and overall happiness.</div>
-            </div>
-            <div class="card">
-                <div class="front">How Can We Improve It?</div>
-                <div class="back">Engage in activities that reduce stress, get enough sleep, and talk to someone when you're feeling low.</div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 LumaMind. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        // Mood Slider with Emoji-based Range
-        const moodSlider = document.getElementById("mood-slider");
-        const moodStars = document.getElementById("mood-stars");
-        const moodValue = ["😞", "😐", "🙂", "😊", "🌞"];
-        const moodReason = document.getElementById("mood-reason");
-
-        moodSlider.oninput = function() {
-            let moodEmoji = moodValue[moodSlider.value - 1];
-            moodStars.textContent = moodEmoji; // Show emoji based on mood
-        };
-
-        function submitMood() {
-            const mood = moodValue[moodSlider.value - 1];
-            const reason = moodReason.value;
-            console.log(`Mood: ${mood}, Reason: ${reason}`);
-            
-            // You could also calculate stars based on mood here and update progress (e.g., reward system)
-            alert(`Your mood: ${mood} has been recorded. Thank you!`);
-            moodReason.value = ''; // Clear reason text
-        }
-
-        // Memory Match Game
-        let cards = [];
-        let selectedCards = [];
-
-        function startMemoryGame() {
-            cards = ['🦋', '🦄', '🐙', '🌸', '🦋', '🦄', '🐙', '🌸'];
-            shuffle(cards);
-            displayCards();
-        }
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        function displayCards() {
-            const gameBoard = document.getElementById("game-board");
-            gameBoard.innerHTML = '';
-            cards.forEach((card, index) => {
-                const cardElement = document.createElement("div");
-                cardElement.classList.add("card");
-                cardElement.dataset.index = index;
-                cardElement.textContent = "?";
-                cardElement.onclick = revealCard;
-                gameBoard.appendChild(cardElement);
-            });
-        }
-
-        function revealCard(e) {
-            const cardElement = e.target;
-            const cardIndex = cardElement.dataset.index;
-            cardElement.textContent = cards[cardIndex];
-
-            selectedCards.push({ cardIndex, cardElement });
-
-            if (selectedCards.length === 2) {
-                checkForMatch();
-            }
-        }
-
-        function checkForMatch() {
-            const [first, second] = selectedCards;
-            if (cards[first.cardIndex] === cards[second.cardIndex]) {
-                first.cardElement.style.backgroundColor = "lightgreen";
-                second.cardElement.style.backgroundColor = "lightgreen";
-            } else {
-                setTimeout(() => {
-                    first.cardElement.textContent = "?";
-                    second.cardElement.textContent = "?";
-                }, 1000);
-            }
-            selectedCards = [];
-        }
-    </script>
-
+    
 </body>
 </html>
 
